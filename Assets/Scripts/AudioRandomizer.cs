@@ -60,7 +60,7 @@ public class AudioRandomizer : MonoBehaviour
             float time = Random.Range(minTiempoEspera, maxTiempoEspera);
             Debug.Log(name + " reproduciendo siguiente clip en " + time + "s.");
             yield return new WaitForSeconds(time);
-            AudioClip clip = (AudioClip)ObjectRandomizer.GetRandom(audioClips);
+            AudioClip clip = (AudioClip)ObjectRandomizer.GetRandom(reproducir.ToArray());
             if (audioSource) { audioSource.clip = clip; }
             audioSource.Play();
             actualizarListaAudio(clip);
