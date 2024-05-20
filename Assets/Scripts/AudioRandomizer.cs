@@ -65,7 +65,7 @@ public class AudioRandomizer : MonoBehaviour
             audioSource.Play();
             actualizarListaAudio(clip);
             Debug.Log(name + " reproduciendo clip: " + clip.name + ".");
-            yield return new WaitForSeconds(audioClips.Length);
+            yield return new WaitForSeconds(clip.length);
         }
     }
 
