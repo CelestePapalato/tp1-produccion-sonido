@@ -8,9 +8,13 @@ public class AudioRandomizer : MonoBehaviour
     [SerializeField] bool playOnStart = true;
     [SerializeField] float minTiempoEspera;
     [SerializeField] float maxTiempoEspera;
+    [SerializeField] int cantidadAudiosEnReserva;
     [SerializeField] AudioClip[] audioClips;
 
     AudioSource audioSource;
+    
+    List<AudioClip> reproducir = new List<AudioClip>();
+    List<AudioClip> reserva = new List<AudioClip> ();
 
     bool isActive = true;
     public bool IsPlaying
@@ -36,6 +40,11 @@ public class AudioRandomizer : MonoBehaviour
         Mathf.Max(0f, minTiempoEspera);
         Mathf.Max(0f, minTiempoEspera, maxTiempoEspera);
         audioSource = GetComponent<AudioSource>();
+
+        foreach(AudioClip clip in audioClips)
+        {
+            reproducir.Add(clip);
+        }
     }
 
     private void Start()
@@ -54,8 +63,21 @@ public class AudioRandomizer : MonoBehaviour
             AudioClip clip = (AudioClip)ObjectRandomizer.GetRandom(audioClips);
             if (audioSource) { audioSource.clip = clip; }
             audioSource.Play();
+            actualizarListaAudio(clip);
             Debug.Log(name + " reproduciendo clip: " + clip.name + ".");
             yield return new WaitForSeconds(audioClips.Length);
+        }
+    }
+
+    private void actualizarListaAudio(AudioClip clipReproducido)
+    {
+        reserva.Add(clipReproducido);
+        reproducir.Remove(clipReproducido);
+        if(reserva.Count >= cantidadAudiosEnReserva || reproducir.Count == 0)
+        {
+            AudioClip llevarAReproduccion = reserva[0];
+            reserva.RemoveAt(0);
+            reproducir.Add(llevarAReproduccion);
         }
     }
 }
