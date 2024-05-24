@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1768329624287335682}
   - component: {fileID: 6337551609643992232}
   m_Layer: 0
-  m_Name: Rayos, truenos
+  m_Name: Rayos, Truenos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
